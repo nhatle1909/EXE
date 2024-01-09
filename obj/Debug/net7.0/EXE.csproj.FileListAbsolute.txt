@@ -46,3 +46,11 @@ D:\DevTools\repos\EXE\obj\Debug\net7.0\refint\EXE.dll
 D:\DevTools\repos\EXE\obj\Debug\net7.0\EXE.pdb
 D:\DevTools\repos\EXE\obj\Debug\net7.0\EXE.genruntimeconfig.cache
 D:\DevTools\repos\EXE\obj\Debug\net7.0\ref\EXE.dll
+D:\DevTools\repos\EXE\bin\Debug\net7.0\AutoMapper.dll
+D:\DevTools\repos\EXE\bin\Debug\net7.0\AutoMapper.Extensions.Microsoft.DependencyInjection.dll
+D:\DevTools\repos\EXE\bin\Debug\net7.0\Microsoft.Extensions.DependencyInjection.dll
+D:\DevTools\repos\EXE\bin\Debug\net7.0\Microsoft.Extensions.DependencyInjection.Abstractions.dll
+D:\DevTools\repos\EXE\bin\Debug\net7.0\Microsoft.Extensions.Logging.dll
+D:\DevTools\repos\EXE\bin\Debug\net7.0\Microsoft.Extensions.Logging.Abstractions.dll
+D:\DevTools\repos\EXE\bin\Debug\net7.0\Microsoft.Extensions.Options.dll
+D:\DevTools\repos\EXE\bin\Debug\net7.0\Microsoft.Extensions.Primitives.dll
