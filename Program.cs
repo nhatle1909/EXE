@@ -1,6 +1,7 @@
 
 using EXE.Interface;
 using EXE.Service;
+using EXE.Tools;
 using Models.Repository;
 using MongoDB.Driver;
 
@@ -13,8 +14,10 @@ namespace EXE
             var builder = WebApplication.CreateBuilder(args);
 
             // Add services to the container.
-
+            
             builder.Services.AddControllers();
+            
+            builder.Services.AddAutoMapper(typeof(Program));
             builder.Services.AddScoped<ITemplateService, TemplateService>();
             builder.Services.AddControllersWithViews();
             builder.Services.AddScoped(typeof(IRepository<>), typeof(Repository<>));
@@ -36,6 +39,10 @@ namespace EXE
                 var uri = s.GetRequiredService<IConfiguration>()["ConnectionString"];
                 return new MongoClient(uri);
             });
+            builder.Services.AddLogging(loggingBuilder =>
+            {
+                loggingBuilder.AddConsole(); // Console Logging
+            });
 
             var app = builder.Build();
 
@@ -50,7 +57,7 @@ namespace EXE
 
             app.UseAuthorization();
 
-
+          
             app.MapControllers();
 
             app.Run();
