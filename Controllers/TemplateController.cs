@@ -1,9 +1,7 @@
 ﻿using EXE.Interface;
 using Microsoft.AspNetCore.Mvc;
-using Models.Model;
-
-using Models.ModelView;
-
+using Repository.Model;
+using Repository.ModelView;
 namespace EXE.Controllers
 {
     [Route("api/[controller]")]

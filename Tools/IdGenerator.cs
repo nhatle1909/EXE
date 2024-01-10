@@ -26,6 +26,6 @@ namespace EXE.Tools
 
             return sb.ToString();
         }
-        
+
     }
 }

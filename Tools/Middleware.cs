@@ -1,8 +1,6 @@
-﻿using Microsoft.AspNetCore.Authentication.OAuth.Claims;
-
-namespace EXE.Tools
+﻿namespace EXE.Tools
 {
-    public class Middleware 
+    public class Middleware
     {
         //private readonly RequestDelegate next;
         //public Middleware(RequestDelegate _next)
@@ -17,7 +15,7 @@ namespace EXE.Tools
         //    } 
         //    catch (Excep)
         //    {
-                
+
         //    }
         //}
         //public async Task HandleDataException(HttpContex)

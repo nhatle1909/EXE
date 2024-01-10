@@ -1,9 +1,9 @@
 ﻿using AutoMapper;
 using EXE.Interface;
 using EXE.Tools;
-using Models.Model;
-using Models.ModelView;
 using Models.Repository;
+using Repository.Model;
+using Repository.ModelView;
 
 namespace EXE.Service
 {
@@ -27,6 +27,12 @@ namespace EXE.Service
 
         public async Task<bool> DeleteTemplateItem(string id)
         {
+            IEnumerable<TemplateModel> selectedItem = await _repos.GetByFilterAsync(a => a.id.Equals(id));
+            if (!selectedItem.Any())
+            {
+                throw new Exception($"Item with id {id} not found");
+            }
+
             return await _repos.RemoveItemByValue(id);
         }
 
@@ -37,6 +43,11 @@ namespace EXE.Service
 
         public async Task<TemplateModel> UpdateTemplateItem(string id, TemplateModelView TemplateModelView)
         {
+            IEnumerable<TemplateModel> selectedItem = await _repos.GetByFilterAsync(a => a.id.Equals(id));
+            if (!selectedItem.Any())
+            {
+                throw new Exception($"Item with id {id} not found");
+            }
             TemplateModel TemplateItem = _mapper.Map<TemplateModel>(TemplateModelView);
             TemplateItem.id = id;
             return await _repos.UpdateItemByValue(id, TemplateItem);

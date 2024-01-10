@@ -1,5 +1,5 @@
-﻿using Models.Model;
-using Models.ModelView;
+﻿using Repository.Model;
+using Repository.ModelView;
 
 namespace EXE.Interface
 {

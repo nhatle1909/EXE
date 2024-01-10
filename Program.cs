@@ -1,9 +1,12 @@
 
 using EXE.Interface;
 using EXE.Service;
-using EXE.Tools;
+using Microsoft.AspNetCore.Authentication.JwtBearer;
+using Microsoft.IdentityModel.Tokens;
+using Microsoft.OpenApi.Models;
 using Models.Repository;
 using MongoDB.Driver;
+using System.Text;
 
 namespace EXE
 {
@@ -14,11 +17,12 @@ namespace EXE
             var builder = WebApplication.CreateBuilder(args);
 
             // Add services to the container.
-            
+
             builder.Services.AddControllers();
-            
+
             builder.Services.AddAutoMapper(typeof(Program));
             builder.Services.AddScoped<ITemplateService, TemplateService>();
+            builder.Services.AddScoped<IAccountService, AccountService>();
             builder.Services.AddControllersWithViews();
             builder.Services.AddScoped(typeof(IRepository<>), typeof(Repository<>));
             //Add Cors Policy
@@ -33,7 +37,39 @@ namespace EXE
             });
             // Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
             builder.Services.AddEndpointsApiExplorer();
-            builder.Services.AddSwaggerGen();
+            builder.Services.AddSwaggerGen(c =>
+            {
+                c.SwaggerDoc("v1",
+                    new OpenApiInfo
+                    {
+                        Title = "EXE",
+                        Description = "EXE Source",
+                        Version = "v1",
+                    });
+                c.AddSecurityDefinition("Bearer", new OpenApiSecurityScheme
+                {
+                    In = ParameterLocation.Header,
+                    Description = "Please enter token",
+                    Name = "Authorization",
+                    Type = SecuritySchemeType.Http,
+                    BearerFormat = "JWT",
+                    Scheme = "bearer"
+                });
+                c.AddSecurityRequirement(new OpenApiSecurityRequirement
+    {
+        {
+            new OpenApiSecurityScheme
+            {
+                Reference = new OpenApiReference
+                {
+                    Type = ReferenceType.SecurityScheme,
+                    Id = "Bearer"
+                }
+            },
+            Array.Empty<string>()
+        }
+    });
+            });
             builder.Services.AddSingleton<IMongoClient, MongoClient>(s =>
             {
                 var uri = s.GetRequiredService<IConfiguration>()["ConnectionString"];
@@ -42,6 +78,19 @@ namespace EXE
             builder.Services.AddLogging(loggingBuilder =>
             {
                 loggingBuilder.AddConsole(); // Console Logging
+            });
+            builder.Services.AddAuthentication(JwtBearerDefaults.AuthenticationScheme)
+            .AddJwtBearer(options =>
+            {
+                options.TokenValidationParameters = new TokenValidationParameters
+                {
+                    ValidateIssuer = true,
+                    ValidateAudience = true,
+                    ValidateIssuerSigningKey = true,
+                    IssuerSigningKey = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(builder.Configuration["JWT:Key"] ?? throw new ArgumentNullException("builder.Configuration[\"Jwt:Key\"]", "Jwt:Key is null"))),
+                    ValidIssuer = builder.Configuration["JWT:Issure"],
+                    ValidAudience = builder.Configuration["JWT:Audience"]
+                };
             });
 
             var app = builder.Build();
@@ -57,7 +106,7 @@ namespace EXE
 
             app.UseAuthorization();
 
-          
+            app.UseAuthentication();
             app.MapControllers();
 
             app.Run();
