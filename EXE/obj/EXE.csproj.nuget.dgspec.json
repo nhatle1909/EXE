@@ -33,8 +33,8 @@
           "net8.0": {
             "targetAlias": "net8.0",
             "projectReferences": {
-              "D:\\DevTools\\repos\\EXEProject\\Repository\\Repository.csproj": {
-                "projectPath": "D:\\DevTools\\repos\\EXEProject\\Repository\\Repository.csproj"
+              "D:\\DevTools\\repos\\EXEProject\\Repository\\Model.csproj": {
+                "projectPath": "D:\\DevTools\\repos\\EXEProject\\Repository\\Model.csproj"
               }
             }
           }
@@ -76,6 +76,10 @@
             "Swashbuckle.AspNetCore": {
               "target": "Package",
               "version": "[6.5.0, )"
+            },
+            "Twilio": {
+              "target": "Package",
+              "version": "[6.16.1, )"
             }
           },
           "imports": [
@@ -101,12 +105,12 @@
         }
       }
     },
-    "D:\\DevTools\\repos\\EXEProject\\Repository\\Repository.csproj": {
+    "D:\\DevTools\\repos\\EXEProject\\Repository\\Model.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "D:\\DevTools\\repos\\EXEProject\\Repository\\Repository.csproj",
-        "projectName": "Repository",
-        "projectPath": "D:\\DevTools\\repos\\EXEProject\\Repository\\Repository.csproj",
+        "projectUniqueName": "D:\\DevTools\\repos\\EXEProject\\Repository\\Model.csproj",
+        "projectName": "Model",
+        "projectPath": "D:\\DevTools\\repos\\EXEProject\\Repository\\Model.csproj",
         "packagesPath": "C:\\Users\\ADMIN\\.nuget\\packages\\",
         "outputPath": "D:\\DevTools\\repos\\EXEProject\\Repository\\obj\\",
         "projectStyle": "PackageReference",
@@ -165,6 +169,10 @@
             "Swashbuckle.AspNetCore": {
               "target": "Package",
               "version": "[6.5.0, )"
+            },
+            "Twilio": {
+              "target": "Package",
+              "version": "[6.16.1, )"
             }
           },
           "imports": [

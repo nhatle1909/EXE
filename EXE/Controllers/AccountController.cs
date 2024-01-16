@@ -10,7 +10,7 @@ namespace EXE.Controllers
     public class AccountController : ControllerBase
     {
         private readonly IAccountService _accountService;
-        public AccountController(IAccountService accountService,IConfiguration configuration)
+        public AccountController(IAccountService accountService, IConfiguration configuration)
         {
             _accountService = accountService;
         }
@@ -41,7 +41,7 @@ namespace EXE.Controllers
                 return BadRequest(ModelState);
             }
 
-            (string, AccountView) tuple = await _accountService.Login(Username,Password);
+            (string, AccountView) tuple = await _accountService.Login(Username, Password);
             if (tuple.Item1 == null)
             {
                 return Unauthorized();
