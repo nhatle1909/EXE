@@ -13,7 +13,7 @@ namespace EXE.Service
         private readonly IMapper _mapper;
         private readonly IRepository<Account> _repos;
         private readonly IConfiguration _configuration;
-        public AccountService(IRepository<Account> AccountRepo,IConfiguration configuration ,IMapper mapper)
+        public AccountService(IRepository<Account> AccountRepo, IConfiguration configuration, IMapper mapper)
         {
 
             _repos = AccountRepo;
@@ -45,20 +45,20 @@ namespace EXE.Service
 
         }
 
-        public async Task<(string,AccountView)> Login(string Username,string Password)
+        public async Task<(string, AccountView)> Login(string Username, string Password)
         {
             IEnumerable<Account> credential = await _repos.GetByFilterAsync(
                 a => a.Username.Equals(Username) &&
                 a.Password.Equals(Password)
                 );
-            if (!credential.Any()) 
+            if (!credential.Any())
             {
                 throw new Exception("Invalid Credential");
             }
-            Account account =  credential.First();
-          
+            Account account = credential.First();
+
             if (account.IsBanned) throw new Exception("Account is Banned");
-              AccountView accountView = _mapper.Map<AccountView>(account);
+            AccountView accountView = _mapper.Map<AccountView>(account);
             Authentication authentication = new(_configuration);
             string token = authentication.GenerateJwtToken(account.AccountId, 1);
             return (token, accountView);
